@@ -1,0 +1,26 @@
+# Dependencias y builds
+node_modules/
+.next/
+dist/
+*.tsbuildinfo
+
+# Secretos y configuración local
+.env
+.env.*
+!.env.example
+.env.test-users
+.vercel
+
+# Detector de placas: datos locales
+__pycache__/
+*.pyc
+detecciones/
+videos-pruebas/
+*.mp4
+*.pt
+cola_detector.jsonl*
+
+# Sistema
+.DS_Store
+Thumbs.db
+*.log

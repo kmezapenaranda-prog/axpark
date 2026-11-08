@@ -1,0 +1,27 @@
+# Detector de placas — corre sin ventana (DETECTOR_HEADLESS=1) y se reconecta solo a la cámara.
+# Uso típico con una cámara IP (Tapo) en el parqueadero:
+#   docker run -d --restart unless-stopped \
+#     -e PARKING_API_URL=https://api.tudominio.com/parking/entry \
+#     -e DETECTOR_API_KEY=axp_... -e TAPO_USER=... -e TAPO_PASS=... \
+#     -v axpark-cola:/app/cola parking-ia-detector --tapo 192.168.1.50
+# La cola offline vive en /app/cola: monta un volumen para no perderla al reiniciar.
+FROM python:3.11-slim
+
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    libgl1 libglib2.0-0 libsm6 libxext6 libxrender1 \
+    && rm -rf /var/lib/apt/lists/*
+
+WORKDIR /app
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+# yolov8n.pt no va en el repo: Ultralytics lo descarga solo la primera vez (~6 MB).
+COPY detector_placas.py detector_api.py ./
+
+ENV PARKING_API_URL=http://backend:3000/parking/entry
+# El contenedor no tiene pantalla: sin ventana y con reconexión a la cámara.
+ENV DETECTOR_HEADLESS=1
+ENV DETECTOR_QUEUE_FILE=/app/cola/cola_detector.jsonl
+RUN mkdir -p /app/cola
+
+ENTRYPOINT ["python", "detector_placas.py"]

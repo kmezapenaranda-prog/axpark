@@ -1,0 +1,15 @@
+export const queryKeys = {
+  vehicles: (tenantId: number) => ["vehicles", tenantId] as const,
+  clients: (tenantId: number) => ["clients", tenantId] as const,
+  activeVehicles: (tenantId: number) => ["activeVehicles", tenantId] as const,
+  memberships: (tenantId: number) => ["memberships", tenantId] as const,
+  expiringMemberships: (tenantId: number) => ["expiringMemberships", tenantId] as const,
+  settings: (tenantId: number) => ["settings", tenantId] as const,
+  users: (tenantId: number) => ["users", tenantId] as const,
+  detectors: (tenantId: number) => ["detectors", tenantId] as const,
+  tenants: () => ["tenants"] as const,
+  tenant: (id: number) => ["tenant", id] as const,
+  entries: (tenantId: number) => ["entries", tenantId] as const,
+  cajaReport: (fecha: string, tenantId: number) => ["cajaReport", fecha, tenantId] as const,
+  reportSummary: (tenantId: number) => ["reportSummary", tenantId] as const,
+};

@@ -1,0 +1,33 @@
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: parking-ia-backend
+    restart: unless-stopped
+    environment:
+      PORT: ${PORT:-3000}
+      DATABASE_URL: ${DATABASE_URL}
+      JWT_SECRET: ${JWT_SECRET}
+      NODE_ENV: ${NODE_ENV:-production}
+      CORS_ORIGIN: ${CORS_ORIGIN:-http://localhost:3001}
+      WHATSAPP_TOKEN: ${WHATSAPP_TOKEN:-}
+      WHATSAPP_PHONE_ID: ${WHATSAPP_PHONE_ID:-}
+      WHATSAPP_ADMIN_PHONE: ${WHATSAPP_ADMIN_PHONE:-}
+    ports:
+      - '${PORT:-3000}:3000'
+
+  # Opcional — requiere acceso a display/cámara del host, ver Dockerfile.detector.
+  # Levantar explícitamente con: docker compose --profile detector up detector
+  detector:
+    build:
+      context: .
+      dockerfile: Dockerfile.detector
+    container_name: parking-ia-detector
+    profiles: ['detector']
+    depends_on:
+      - backend
+    environment:
+      PARKING_API_URL: http://backend:3000/parking/entry
+      # Clave creada en el panel (Admin → negocio → Detectores de placas)
+      DETECTOR_API_KEY: ${DETECTOR_API_KEY:-}

@@ -1,0 +1,33 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+
+# Environment / secrets
+.env
+.env.*
+!.env.example
+
+# Backups & runtime data
+backups/
+detecciones/
+*.log
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+*.egg-info/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# ignore test videos
+videos-pruebas/
+# Cola offline del detector de placas
+cola_detector.jsonl
+cola_detector.jsonl.tmp
