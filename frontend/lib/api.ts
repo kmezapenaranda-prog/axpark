@@ -708,3 +708,13 @@ export async function revokeDetector(id: number, tenantId: number): Promise<void
   const res = await apiFetch(`/detectors/${id}?tenantId=${tenantId}`, { method: "DELETE" });
   await ensureOk(res, "Error al revocar el detector");
 }
+
+/** El usuario con sesión cambia su propia contraseña (exige la actual). */
+export async function changeMyPassword(currentPassword: string, newPassword: string): Promise<void> {
+  const res = await apiFetch(`/auth/password`, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ currentPassword, newPassword }),
+  });
+  await ensureOk(res, "No se pudo cambiar la contraseña");
+}

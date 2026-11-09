@@ -1,10 +1,12 @@
 "use client";
 
+import { useState } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useTheme } from "@/components/theme-provider";
 import { useAuth } from "@/components/auth-provider";
-import { Building, LayoutGrid, CircleParking, Users, Car, Calendar, DollarSign, BarChart3, UserPlus, Sun, Moon, LogOut, X } from "lucide-react";
+import { Building, LayoutGrid, CircleParking, Users, Car, Calendar, DollarSign, BarChart3, UserPlus, Sun, Moon, LogOut, X, KeyRound } from "lucide-react";
+import { ChangePasswordDialog } from "@/components/users/change-password-dialog";
 import { BrandIcon } from "@/components/brand-logo";
 import { MotionConfig, motion, type PanInfo } from "motion/react";
 
@@ -79,6 +81,7 @@ const navItems: { href: string; label: string; roles: Role[]; icon: React.ReactN
 ];
 
 export function Sidebar({ open = false, onClose }: { open?: boolean; onClose?: () => void }) {
+  const [passwordOpen, setPasswordOpen] = useState(false);
   const pathname = usePathname();
   const router = useRouter();
   const { theme, toggle } = useTheme();
@@ -143,6 +146,16 @@ export function Sidebar({ open = false, onClose }: { open?: boolean; onClose?: (
               {session ? session.user.fullName.charAt(0).toUpperCase() : "?"}
             </div>
           </div>
+          {session && (
+            <button
+              onClick={() => setPasswordOpen(true)}
+              title="Cambiar mi contraseña"
+              aria-label="Cambiar mi contraseña"
+              className="flex items-center justify-center px-2.5 py-2.5 rounded-[10px] text-text-muted hover:text-text-primary hover:bg-page-subtle transition-colors duration-150 cursor-pointer"
+            >
+              <KeyRound className="w-[18px] h-[18px]" strokeWidth={1.75} />
+            </button>
+          )}
           {session && (
             <button
               onClick={handleLogout}
@@ -248,6 +261,16 @@ export function Sidebar({ open = false, onClose }: { open?: boolean; onClose?: (
             </div>
             {session && (
               <button
+                onClick={() => { onClose?.(); setPasswordOpen(true); }}
+                title="Cambiar mi contraseña"
+                aria-label="Cambiar mi contraseña"
+                className="p-1.5 rounded-lg flex-shrink-0 cursor-pointer transition-colors duration-150 text-text-muted hover:text-text-primary"
+              >
+                <KeyRound className="w-4 h-4" />
+              </button>
+            )}
+            {session && (
+              <button
                 onClick={handleLogout}
                 title="Cerrar sesión"
                 className="p-1.5 rounded-lg flex-shrink-0 cursor-pointer transition-colors duration-150 text-text-muted hover:text-destructive"
@@ -259,6 +282,8 @@ export function Sidebar({ open = false, onClose }: { open?: boolean; onClose?: (
         </div>
       </motion.aside>
       </MotionConfig>
+
+      <ChangePasswordDialog open={passwordOpen} onClose={() => setPasswordOpen(false)} />
     </>
   );
 }
