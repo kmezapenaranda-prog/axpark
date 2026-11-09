@@ -203,7 +203,7 @@ export function MensualidadesClient() {
 
 
   return (
-    <div className="p-6 md:p-8 max-w-7xl mx-auto">
+    <div className="px-4 py-5 sm:p-6 md:p-8 max-w-7xl mx-auto">
       <div className="flex flex-wrap items-start justify-between gap-3 mb-8">
         <div>
           <h1 className="text-2xl font-bold text-white mb-1">Mensualidades</h1>

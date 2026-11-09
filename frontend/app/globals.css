@@ -374,6 +374,23 @@ input[type="number"] {
   }
 }
 
+/* ── Celulares ─────────────────────────────────────────────────────────────
+   iPhone hace zoom al tocar cualquier campo con letra menor de 16 px y la página
+   queda agrandada ("no cabe en la pantalla"). En pantallas táctiles los campos
+   usan 16 px; en computador conservan su tamaño. */
+@media (max-width: 767px), (pointer: coarse) {
+  input:not([type="checkbox"]):not([type="radio"]),
+  select,
+  textarea {
+    font-size: 16px !important;
+  }
+}
+/* Evita que el celular agrande el texto solo al girar la pantalla. */
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
 /* ── Accesibilidad (apple-design §14) ───────────────────────────────────── */
 /* Movimiento reducido: sin desplazamientos ni escalas, solo fundidos cortos */
 @media (prefers-reduced-motion: reduce) {

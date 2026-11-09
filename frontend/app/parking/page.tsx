@@ -304,20 +304,20 @@ export default function ParkingPage() {
   };
 
   return (
-    <div className="p-6 md:p-8 max-w-7xl mx-auto">
+    <div className="px-4 py-5 sm:p-6 md:p-8 max-w-7xl mx-auto">
       {/* Header */}
       <div className="flex flex-wrap items-start justify-between gap-3 mb-8">
         <div>
           <h1 className="text-2xl font-bold text-white mb-1">Parking Activo</h1>
           <p className="text-sm text-text-secondary">Vehículos dentro del parqueadero en este momento</p>
         </div>
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-3 w-full sm:w-auto">
           {lastUpdate && (
-            <span className="text-xs text-text-dim">
+            <span className="hidden sm:inline text-xs text-text-dim">
               Actualizado {lastUpdate.toLocaleTimeString("es-CO", { hour: "2-digit", minute: "2-digit", second: "2-digit" })}
             </span>
           )}
-          <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-ok-dim border border-ok/25">
+          <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full whitespace-nowrap bg-ok-dim border border-ok/25">
             <span className="relative flex w-2 h-2">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full opacity-75 bg-ok" />
               <span className="relative inline-flex rounded-full w-2 h-2 bg-ok" />
@@ -326,7 +326,7 @@ export default function ParkingPage() {
           </div>
           <button
             onClick={() => { setEntryNotice(null); setEntryPlate(""); setEntryType("car"); setEntryOpen(true); }}
-            className="flex items-center gap-1.5 px-4 py-2 rounded-xl text-sm font-semibold cursor-pointer text-white bg-ok hover:opacity-90 transition-opacity"
+            className="ml-auto flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-xl text-sm font-semibold whitespace-nowrap cursor-pointer text-white bg-ok hover:opacity-90 transition-opacity"
           >
             <LogIn className="w-4 h-4" />
             Registrar Entrada
@@ -391,7 +391,7 @@ export default function ParkingPage() {
       )}
 
       {/* Stats bar */}
-      <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 mb-6">
+      <div className="grid grid-cols-3 gap-2 sm:gap-4 mb-6">
         {[
           { label: "Vehículos adentro", value: loading ? "—" : String(vehicles.length), color: "var(--primary)" },
           {
@@ -410,9 +410,9 @@ export default function ParkingPage() {
             color: "var(--ok)",
           },
         ].map((stat) => (
-          <div key={stat.label} className="rounded-2xl p-5 border border-border-default bg-page-card backdrop-blur">
-            <p className="text-xs font-medium mb-1 text-text-muted">{stat.label}</p>
-            <p className="text-2xl font-bold" style={{ color: stat.color }}>{stat.value}</p>
+          <div key={stat.label} className="min-w-0 rounded-2xl p-3 sm:p-5 border border-border-default bg-page-card backdrop-blur">
+            <p className="text-[11px] sm:text-xs leading-tight font-medium mb-1 text-text-muted">{stat.label}</p>
+            <p className="text-lg sm:text-2xl font-bold truncate tabular-nums" style={{ color: stat.color }}>{stat.value}</p>
           </div>
         ))}
       </div>

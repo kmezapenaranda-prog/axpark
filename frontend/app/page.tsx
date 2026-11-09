@@ -101,7 +101,7 @@ export default function HomePage() {
   }
 
   return (
-    <div className="p-6 md:p-8 max-w-7xl mx-auto">
+    <div className="px-4 py-5 sm:p-6 md:p-8 max-w-7xl mx-auto">
       <div className="mb-10">
         <h1 className="text-3xl font-bold text-white mb-2">Dashboard</h1>
         <p className="text-text-secondary">
