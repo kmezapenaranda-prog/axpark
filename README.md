@@ -82,7 +82,14 @@ npm run dev
 
 Para crear el primer usuario, define `INITIAL_ADMIN_EMAIL` e `INITIAL_ADMIN_PASSWORD` en `backend/.env` antes de arrancar la API.
 
-### Detector de placas
+### Detector de placas en el PC del parqueadero (Windows, sin comandos)
+
+1. En la app, entra como admin a **Negocio → Detectores de placas → Nuevo detector** y copia la clave.
+2. En el PC del parqueadero instala [Python 3.11](https://www.python.org/downloads/) (marca *Add Python to PATH*) y descarga este repositorio.
+3. Doble clic en **`backend/instalar-detector.bat`**: instala todo, pide la clave y los datos de la cámara, comprueba que funcionen y deja el detector arrancando solo al iniciar Windows.
+4. **`probar-camara.bat`** muestra la cámara y las placas leídas sin registrarlas; **`iniciar-detector.bat`** lo arranca y lo reinicia solo si se cierra.
+
+### Detector de placas manual (cualquier sistema)
 
 1. En la app, entra como admin a **Negocio → Detectores de placas → Nuevo detector** y copia la clave.
 2. En el PC del parqueadero:
